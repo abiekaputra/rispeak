@@ -1,0 +1,63 @@
+{
+  "version": 1,
+  "author": "Abi Eka Putra Wulyono",
+  "editor": "wokwi",
+  "parts": [
+    {
+      "type": "board-esp32-s3-devkitc-1",
+      "id": "esp",
+      "top": -8,
+      "left": -6,
+      "attrs": { "flashSize": "8", "psramSize": "8" }
+    },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "paymentButton",
+      "top": 15,
+      "left": -215,
+      "attrs": {
+        "color": "#ffb41f",
+        "label": "Verified payment",
+        "key": "P",
+        "bounce": "0"
+      }
+    },
+    {
+      "type": "wokwi-buzzer",
+      "id": "speaker",
+      "top": 132,
+      "left": -205,
+      "attrs": { "volume": "0.35", "mode": "smooth" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "statusLed",
+      "top": 225,
+      "left": -184,
+      "attrs": { "color": "green", "label": "Device status" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "statusResistor",
+      "top": 237,
+      "left": -112,
+      "rotate": 90,
+      "attrs": { "value": "220" }
+    }
+  ],
+  "connections": [
+    ["paymentButton:1.l", "esp:4", "orange", []],
+    ["paymentButton:2.l", "esp:GND.1", "black", []],
+    ["speaker:2", "esp:5", "orange", []],
+    ["speaker:1", "esp:GND.1", "black", []],
+    ["esp:6", "statusResistor:1", "green", []],
+    ["statusResistor:2", "statusLed:A", "green", []],
+    ["statusLed:C", "esp:GND.1", "black", []]
+  ],
+  "dependencies": {},
+  "serialMonitor": {
+    "collapse": false,
+    "display": "always",
+    "newline": "lf"
+  }
+}

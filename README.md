@@ -16,6 +16,8 @@ This public repository is the interactive product showcase. It proves the user j
 
 ![A simulated payment reaches the announced state](./docs/screenshots/payment-announced.png)
 
+![Rispeak ESP32-S3 lifecycle running in Wokwi](./docs/screenshots/wokwi-device-simulation.png)
+
 ## What can be evaluated
 
 - Simulate a settled payment without entering real merchant credentials.
@@ -25,6 +27,7 @@ This public repository is the interactive product showcase. It proves the user j
 - Adjust the simulated speaker volume.
 - Inspect the responsive counter experience on desktop and mobile.
 - Run automated unit and browser journeys.
+- Inspect and run the ESP32-S3 lifecycle simulation in Wokwi without physical hardware.
 
 ## Public system context
 
@@ -37,7 +40,7 @@ flowchart LR
     Speaker --> Core
 ```
 
-The current hardware boundary is intentionally replaceable. A local software device simulator validates the command lifecycle today; the physical audio and connectivity adapter will be selected after prototype hardware is purchased and measured.
+The current hardware boundary is intentionally replaceable. The browser validates Indonesian speech and the [Wokwi ESP32-S3 simulation](./firmware/wokwi/) validates device startup, Wi-Fi, state transitions, indicators, and playback acknowledgement. Wokwi does not emulate ESP32-S3 I2S, so physical audio quality remains a later hardware test.
 
 ## Run the showcase
 
@@ -63,11 +66,14 @@ The checks cover formatting, TypeScript, metric behavior, production build outpu
 
 Read [the public product boundary](./docs/product-boundary.md) before interpreting this repository. The demo does not connect to Shopee, QRIS, or any payment provider, and it does not claim production payment processing.
 
+The [ShopeePay integration plan](./docs/shopeepay-integration.md) documents the official interfaces, credentials, verification rules, and lowest-cost path required before a real provider connection can be built.
+
 ## Status
 
 - Software MVP: working locally with a private service core and browser speaker simulator.
 - Public showcase: interactive and safe to run without credentials.
-- Physical prototype: waiting for hardware selection and purchase.
+- Virtual hardware prototype: ESP32-S3 circuit and firmware prepared for Wokwi validation.
+- Physical prototype: waiting for sandbox integration results, hardware selection, and purchase.
 - Provider integration: waiting for access to an approved official interface.
 
 ## Rights

@@ -9,6 +9,7 @@ Rispeak is being designed as a commercial product. This repository exposes enoug
 - Device profile and reliability states.
 - Responsive interface and automated checks.
 - High-level system context.
+- ESP32-S3 Wokwi simulation for the device lifecycle and indicators.
 
 ## Kept private
 
@@ -21,3 +22,5 @@ Rispeak is being designed as a commercial product. This repository exposes enoug
 The public demo makes no real payment claim and never requests merchant credentials.
 
 The browser speaker uses the operating system's installed text-to-speech voices. Payment text stays on the device from the application's perspective; voice availability and processing behavior depend on the selected browser and operating system.
+
+The Wokwi circuit uses a buzzer as an audio-completion surrogate. It does not prove voice quality or a production payment-provider connection.
