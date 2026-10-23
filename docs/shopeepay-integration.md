@@ -2,6 +2,12 @@
 
 This document maps the official ShopeePay interfaces Rispeak would need. It does not contain credentials or claim that the current simulator processes real payments.
 
+## Current decision
+
+The integration is paused. The available merchant account does not provide the approved webhook or equivalent transaction-verification access required by this design. No hardware will be purchased and no unofficial merchant-app workaround will be implemented while that dependency remains unresolved.
+
+This document remains as the feasibility record for the interface that would be required before development could resume.
+
 ## Recommended payment flow
 
 Rispeak should use Merchant Presented Mode with a dynamic QR when official API access is approved. A dynamic QR gives each order a unique reference and amount, which makes payment verification and speaker announcements safer than reacting to an unverified notification.

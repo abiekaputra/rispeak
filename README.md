@@ -6,6 +6,8 @@
 
 <p align="center"><strong>A payment confirmation speaker that lets a busy counter hear what matters.</strong></p>
 
+> **Project status — paused after feasibility validation.** The software showcase, private local core, and virtual-device lifecycle are complete. Development stopped before hardware purchase because the available merchant account does not provide an approved payment-success webhook or equivalent verification interface. Rispeak deliberately avoids notification scraping, screen reading, and other unofficial signals that could announce an unverified payment.
+
 At a crowded shop, the merchant should not need to stop serving, unlock a phone, and inspect a notification every time a customer says they have paid. Rispeak turns a verified payment event into a concise voice confirmation and gives the merchant a calm console for device status, announcement history, and recovery states.
 
 This public repository is the interactive product showcase. It proves the user journey and interface quality with deterministic simulated data while the payment connectors, verification rules, device provisioning, and commercial operations remain private.
@@ -40,7 +42,7 @@ flowchart LR
     Speaker --> Core
 ```
 
-The current hardware boundary is intentionally replaceable. The browser validates Indonesian speech and the [Wokwi ESP32-S3 simulation](./firmware/wokwi/) validates device startup, Wi-Fi, state transitions, indicators, and playback acknowledgement. Wokwi does not emulate ESP32-S3 I2S, so physical audio quality remains a later hardware test.
+The current hardware boundary is intentionally replaceable. The browser validates Indonesian speech and the [Wokwi ESP32-S3 simulation](./firmware/wokwi/) validates device startup, Wi-Fi, state transitions, indicators, and playback acknowledgement. Wokwi does not emulate ESP32-S3 I2S. Physical-device development is paused unless an approved provider integration becomes available.
 
 ## Run the showcase
 
@@ -72,9 +74,10 @@ The [ShopeePay integration plan](./docs/shopeepay-integration.md) documents the 
 
 - Software MVP: working locally with a private service core and browser speaker simulator.
 - Public showcase: interactive and safe to run without credentials.
-- Virtual hardware prototype: ESP32-S3 circuit and firmware prepared for Wokwi validation.
-- Physical prototype: waiting for sandbox integration results, hardware selection, and purchase.
-- Provider integration: waiting for access to an approved official interface.
+- Virtual hardware prototype: ESP32-S3 lifecycle validated in Wokwi.
+- Provider integration: blocked because the available merchant account does not expose an approved payment-verification interface.
+- Physical prototype: intentionally not purchased or built while that dependency remains unresolved.
+- Product decision: retained as a validated portfolio prototype and paused on 23 October 2026.
 
 ## Rights
 
