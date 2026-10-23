@@ -18,7 +18,7 @@ export function PaymentSimulator({ onSubmit }: PaymentSimulatorProps) {
     setBusy(true);
     try {
       await onSubmit(parsed);
-      setMessage(`Pembayaran Rp${parsed.toLocaleString('id-ID')} masuk ke antrean suara.`);
+      setMessage(`Pembayaran Rp${parsed.toLocaleString('id-ID')} berhasil diumumkan.`);
     } catch (error) {
       setMessage(error instanceof Error ? error.message : 'Simulasi gagal.');
     } finally {
@@ -31,7 +31,7 @@ export function PaymentSimulator({ onSubmit }: PaymentSimulatorProps) {
       <div>
         <p className="eyebrow">Payment lab</p>
         <h2>Uji pengumuman tanpa QRIS asli</h2>
-        <p>Event hanya diumumkan setelah status pembayaran dinyatakan settled.</p>
+        <p>Browser akan mengucapkan nominal dan menyelesaikan event setelah suara berakhir.</p>
       </div>
       <div className="amount-control">
         <label htmlFor="amount">Nominal pembayaran</label>

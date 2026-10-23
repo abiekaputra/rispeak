@@ -114,6 +114,21 @@ h2,
   box-shadow: 0 0 0 4px rgba(0, 168, 120, 0.12);
 }
 
+.device-pill i.ready {
+  background: #00a878;
+  box-shadow: 0 0 0 4px rgba(0, 168, 120, 0.12);
+}
+
+.device-pill i.speaking {
+  background: #ffc134;
+  box-shadow: 0 0 0 4px rgba(255, 193, 52, 0.18);
+}
+
+.device-pill i.error {
+  background: #d14343;
+  box-shadow: 0 0 0 4px rgba(209, 67, 67, 0.14);
+}
+
 .hero {
   display: grid;
   grid-template-columns: 1fr auto;

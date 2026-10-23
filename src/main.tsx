@@ -1,10 +1,12 @@
-import { StrictMode, useMemo, useState } from 'react';
+import { StrictMode, useEffect, useMemo, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { MetricCard } from './components/MetricCard';
 import { PaymentSimulator } from './components/PaymentSimulator';
 import { TransactionList } from './components/TransactionList';
 import { initialPayments, type DemoPayment } from './data/demo';
 import { calculateMetrics } from './data/metrics';
+import { formatPaymentAnnouncement } from './services/announcement';
+import { createBrowserSpeaker } from './services/browserSpeaker';
 import './styles/app.css';
 
 const rupiah = new Intl.NumberFormat('id-ID');
@@ -12,8 +14,12 @@ const rupiah = new Intl.NumberFormat('id-ID');
 function App() {
   const [payments, setPayments] = useState(initialPayments);
   const [volume, setVolume] = useState(82);
+  const [speakerState, setSpeakerState] = useState<'ready' | 'speaking' | 'error'>('ready');
+  const speaker = useMemo(() => createBrowserSpeaker(), []);
 
   const metrics = useMemo(() => calculateMetrics(payments), [payments]);
+
+  useEffect(() => () => speaker.cancel(), [speaker]);
 
   const simulate = async (amountRupiah: number) => {
     const id = `demo-${Date.now()}`;
@@ -27,11 +33,28 @@ function App() {
     };
     setPayments((current) => [payment, ...current]);
 
-    await new Promise((resolve) => window.setTimeout(resolve, 900));
-    setPayments((current) =>
-      current.map((item) => (item.id === id ? { ...item, announcementStatus: 'announced' } : item)),
-    );
+    setSpeakerState('speaking');
+    try {
+      await speaker.speak(formatPaymentAnnouncement(amountRupiah), volume);
+      setPayments((current) =>
+        current.map((item) =>
+          item.id === id ? { ...item, announcementStatus: 'announced' } : item,
+        ),
+      );
+      setSpeakerState('ready');
+    } catch (error) {
+      setSpeakerState('error');
+      throw error;
+    }
   };
+
+  const speakerLabel = !speaker.supported
+    ? 'Speech unavailable'
+    : speakerState === 'speaking'
+      ? 'Speaking payment'
+      : speakerState === 'error'
+        ? 'Speaker needs attention'
+        : 'Browser speaker ready';
 
   return (
     <div className="app-shell">
@@ -46,7 +69,7 @@ function App() {
         <div className="topbar-actions">
           <span className="demo-badge">Portfolio demo</span>
           <div className="device-pill">
-            <i className="online" /> Speaker online
+            <i className={speaker.supported ? speakerState : 'error'} /> {speakerLabel}
           </div>
         </div>
       </header>
@@ -107,7 +130,7 @@ function App() {
                 Bahasa <strong>Indonesia</strong>
               </span>
               <span>
-                Mode <strong>Settled only</strong>
+                Mode <strong>Browser voice</strong>
               </span>
               <span>
                 Retry <strong>Aktif</strong>

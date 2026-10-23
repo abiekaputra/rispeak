@@ -19,3 +19,5 @@ Rispeak is being designed as a commercial product. This repository exposes enoug
 - Commercial configuration and operational runbooks.
 
 The public demo makes no real payment claim and never requests merchant credentials.
+
+The browser speaker uses the operating system's installed text-to-speech voices. Payment text stays on the device from the application's perspective; voice availability and processing behavior depend on the selected browser and operating system.

@@ -2,6 +2,25 @@ import { chromium } from '@playwright/test';
 import { mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
 
+async function installSpeechStub(page) {
+  await page.addInitScript(() => {
+    class FakeUtterance {
+      constructor(text) {
+        this.text = text;
+      }
+    }
+
+    Object.defineProperty(window, 'SpeechSynthesisUtterance', { value: FakeUtterance });
+    Object.defineProperty(window, 'speechSynthesis', {
+      value: {
+        cancel: () => undefined,
+        getVoices: () => [],
+        speak: (utterance) => window.setTimeout(() => utterance.onend?.(), 80),
+      },
+    });
+  });
+}
+
 const output = resolve('../Porto/Rispeak/screenshots');
 await Promise.all([
   mkdir(resolve(output, 'overview'), { recursive: true }),
@@ -11,6 +30,7 @@ await Promise.all([
 
 const browser = await chromium.launch();
 const desktop = await browser.newPage({ viewport: { width: 1440, height: 1100 } });
+await installSpeechStub(desktop);
 await desktop.goto('http://127.0.0.1:4580');
 await desktop.screenshot({ path: resolve(output, 'overview/dashboard.png'), fullPage: true });
 await desktop.getByLabel('Nominal pembayaran').fill('61500');
@@ -22,6 +42,7 @@ await desktop.screenshot({
 });
 
 const mobile = await browser.newPage({ viewport: { width: 390, height: 844 } });
+await installSpeechStub(mobile);
 await mobile.goto('http://127.0.0.1:4580');
 await mobile.screenshot({
   path: resolve(output, 'responsive/mobile-dashboard.png'),

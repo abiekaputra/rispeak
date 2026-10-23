@@ -19,7 +19,8 @@ This public repository is the interactive product showcase. It proves the user j
 ## What can be evaluated
 
 - Simulate a settled payment without entering real merchant credentials.
-- Watch the event move through the announcement state.
+- Hear the amount spoken through the browser's Indonesian text-to-speech voice.
+- Watch the event remain queued until speech finishes, then move to the announced state.
 - Review settled volume, announced events, and queued work.
 - Adjust the simulated speaker volume.
 - Inspect the responsive counter experience on desktop and mobile.
@@ -64,7 +65,7 @@ Read [the public product boundary](./docs/product-boundary.md) before interpreti
 
 ## Status
 
-- Software MVP: working locally with a private service core and device simulator.
+- Software MVP: working locally with a private service core and browser speaker simulator.
 - Public showcase: interactive and safe to run without credentials.
 - Physical prototype: waiting for hardware selection and purchase.
 - Provider integration: waiting for access to an approved official interface.
